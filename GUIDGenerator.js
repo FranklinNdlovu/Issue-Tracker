@@ -23,12 +23,7 @@ var UUIDv4 = new function() {
 		return variant.toString(16);
 	};
 
-    // UUID v4
-    //
-    //   varsion: M=4 
-    //   variant: N
-    //   pattern: xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
-    //
+    // Make this dynamic
 	this.generate = function() {
   	    var result = generateXes(8)
   	         + '-' + generateXes(4)
