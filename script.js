@@ -1,8 +1,7 @@
 var form = document.getElementById('issueInputForm');
 form.addEventListener('submit', saveIssue);
 
-function saveIssue(e)
-{
+function saveIssue(e) {
   var issueName = document.getElementById('issueName').value;
   var issueDescription = document.getElementById('issueDescription').value;
   var issueSeverity = document.getElementById('issueSeverity').value;
@@ -19,11 +18,11 @@ function saveIssue(e)
     status: issueStatus
   }
 
-  var issues =(localStorage.getItem('issues') == null) ? [] : JSON.parse(localStorage.getItem('issues'));
-  
+  var issues = (localStorage.getItem('issues') == null) ? [] : JSON.parse(localStorage.getItem('issues'));
+
   issues.push(issue);
   localStorage.setItem('issues', JSON.stringify(issues));
-  
+
   form.reset();
 
   fetchIssues();
@@ -31,14 +30,11 @@ function saveIssue(e)
   e.preventDefault();
 }
 
-function setStatusClosed(id)
-{
+function setStatusClosed(id) {
   var issues = JSON.parse(localStorage.getItem('issues'));
 
-  for (var i = 0; i < issues.length; i++)
-  {
-    if (issues[i].id == id)
-    {
+  for (var i = 0; i < issues.length; i++) {
+    if (issues[i].id == id) {
       issues[i].status = 'Closed';
     }
   }
@@ -48,14 +44,11 @@ function setStatusClosed(id)
   fetchIssues();
 }
 
-function deleteIssue(id)
-{
+function deleteIssue(id) {
   var issues = JSON.parse(localStorage.getItem('issues'));
 
-  for (var i = 0; i < issues.length; i++)
-  {
-    if (issues[i].id == id)
-    {
+  for (var i = 0; i < issues.length; i++) {
+    if (issues[i].id == id) {
       issues.splice(i, 1);
     }
   }
@@ -65,8 +58,7 @@ function deleteIssue(id)
   fetchIssues();
 }
 
-function fetchIssues()
-{
+function fetchIssues() {
   var issues = JSON.parse(localStorage.getItem('issues'));
   var issuesList = document.getElementById('issuesList');
 
@@ -81,8 +73,8 @@ function fetchIssues()
     var status = issue.status;
 
     issuesList.innerHTML += `<div class="card">` +
-    `<h5 class="card-header">${name}</h5>`+
-    `<div class="card-body bg- primary">`+
+      `<h5 class="card-header">${name}</h5>` +
+      `<div class="card-body bg- primary">` +
       `<h6 >Issue ID: ${id} </h6>` +
       '<p><span class="badge bg-info">' + status + '</span></p>' +
       '<h3 class="card-title">' + description + '</h3>' +
@@ -90,9 +82,9 @@ function fetchIssues()
       '<p><span class="fa fa-user" aria-hidden="true"></span> ' + assignedTo + '</p>' +
       '<a href="#" onclick="setStatusClosed(\'' + id + '\')" class="btn btn-warning">Close</a> ' +
       '<a href="#" onclick="deleteIssue(\'' + id + '\')" class="btn btn-danger">Delete</a>' +
-      '</div>'+
+      '</div>' +
       '</div>';
-      
+
   });
- 
+
 }
